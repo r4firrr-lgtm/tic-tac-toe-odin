@@ -1,0 +1,121 @@
+*{
+    --body-color:#B2B4B2;
+    --screen-color:#F0F0F0;
+    --reset-color:#DC3545;
+    --start-color:#198754;
+    --switch-color:#0D6EFD;
+    font-family: 'ArcadeClassic',sans-serif;
+    box-sizing: border-box;
+}
+body {
+    margin: 0; 
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    min-height: 100vh;      
+}
+main{
+    background-color: var(--body-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 380px;
+    height: 95vh;
+    border-radius: 16px;
+    padding: 4px;
+}
+main h1{
+    font-size: 36px;
+    padding: 0;
+    margin: 16px 0 8px 0;}
+#screen{
+    width: 330px;
+    height: 420px;
+    background-color: var(--screen-color);
+    border-radius: 8px;
+    margin: 8PX 0 8PX 0;
+    display: grid;
+    grid-template-rows: 45px 330px 45px;
+}
+#message{
+    grid-row:1/2;
+}
+#square-grid{
+    grid-row:2/3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.square{
+    border: 1px solid #333333;  
+    
+}
+.square:hover{
+    opacity: 95%;
+    transform: scale(0.95);
+}
+#0 {
+    grid-row: 1/2;
+    grid-column: 1/2;
+}
+#1 {
+    grid-row: 2/3;
+    grid-column: 1/2;
+}
+#2 {
+    grid-row: 3/4;
+    grid-column: 1/2;
+}
+#3 {
+    grid-row: 1/2;
+    grid-column: 2/3;
+}
+#4 {
+    grid-row: 2/3;
+    grid-column: 2/3;
+}
+#5 {
+    grid-row: 3/4;
+    grid-column: 2/3;
+}
+#6 {
+    grid-row: 1/2;
+    grid-column: 3/4;
+}
+#7 {
+    grid-row: 2/3;
+    grid-column: 3/4;
+}
+#8 {
+    grid-row: 3/4;
+    grid-column: 3/4;
+}
+#player-choice{
+    grid-row:3/4;
+}
+#button-layout{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 16px;
+}
+#button-layout button{
+    width: 100px;
+    height: 40Px;
+    border-radius: 8px;
+    box-shadow:4px #1a1a1a;
+    cursor: pointer;
+}
+#start{
+    background-color:var(--start-color);
+}
+#switch{
+    background-color:var(--switch-color);
+}
+#reset{
+    background-color: var(--reset-color);
+}
