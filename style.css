@@ -3,6 +3,7 @@
     --screen-color:#F0F0F0;
     --reset-color:#DC3545;
     --start-color:#198754;
+    --level-color:#963e8a;
     --switch-color:#0D6EFD;
     font-family: 'ArcadeClassic',sans-serif;
     box-sizing: border-box;
@@ -12,8 +13,10 @@ body {
     background-color: #1a1a1a;
     display: flex;
     justify-content: center; 
-    align-items: center;  
-    min-height: 100vh;      
+    align-items: flex-start;   
+    height: 600px; 
+    min-height: 100vh;       /* 💡 KUNCI 1: Memenuhi tinggi layar device secara fleksibel */
+    overflow: hidden;
 }
 main{
     background-color: var(--body-color);
@@ -22,41 +25,65 @@ main{
     justify-content: flex-start;
     align-items: center;
     width: 380px;
-    height: 95vh;
+    max-width: 95vw;
+    height: auto;
+    border: 2px solid black;
     border-radius: 16px;
     padding: 4px;
 }
-main h1{
-    font-size: 36px;
+#game-title h1{
+    margin: 0;
     padding: 0;
-    margin: 16px 0 8px 0;}
+    border: 0;
+    text-align: center;
+}
+#game-title p{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    text-align: center;
+    line-height: 10px;
+}
 #screen{
     width: 330px;
     height: 420px;
     background-color: var(--screen-color);
     border-radius: 8px;
+    border: 2px solid black;
     margin: 8PX 0 8PX 0;
     display: grid;
     grid-template-rows: 45px 330px 45px;
 }
-#message{
+#message p{
     grid-row:1/2;
+    text-align: center;
+    margin-top: 0;
+    padding: 0;
+    margin-bottom: 8px;
 }
 #square-grid{
     grid-row:2/3;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 8px;
+    margin: 2px;
+    
 }
 .square{
     border: 1px solid #333333;  
-    
+    font-size: 110px;
+    text-align: center;  
+     
 }
 .square:hover{
     opacity: 95%;
     transform: scale(0.95);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.square.disabled {
+    pointer-events: none;         
+    cursor: default;     
 }
 #0 {
     grid-row: 1/2;
@@ -96,25 +123,41 @@ main h1{
 }
 #player-choice{
     grid-row:3/4;
+    
+}
+#player-choice p{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
 }
 #button-layout{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    gap: 16px;
+    gap: 4px;
 }
 #button-layout button{
-    width: 100px;
+    width: 80px;
     height: 40Px;
     border-radius: 8px;
-    box-shadow:4px #1a1a1a;
+    box-shadow: 0 4px 0px #333; 
+    transition: all 0.1s ease;
+    margin-bottom: 16px;
     cursor: pointer;
+}
+#button-layout button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0px #333;
 }
 #start{
     background-color:var(--start-color);
 }
 #switch{
     background-color:var(--switch-color);
+}
+#level{
+    background-color: var(--level-color);
 }
 #reset{
     background-color: var(--reset-color);

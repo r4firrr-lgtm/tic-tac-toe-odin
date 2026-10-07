@@ -9,30 +9,42 @@
 </head>
 <body>
     <main>
-        <h1>TIC TAC TOE</h1>
+        <div id="game-title">
+            <h1>TIC TAC TOE</h1>
+            <p>Music track: Gameboy by Walen <br>
+            Source: https://freetouse.com/music  <br>
+            Free No Copyright Music Download</p>
+        </div>
         <div id="screen">
-            <div id="message"></div>
+            <div id="message">
+                <p>Start the game by pressing the start button!<p>
+            </div>
             <div id="square-grid">
-                <div class="square" id="0"></div>
-                <div class="square" id="1"></div>
-                <div class="square" id="2"></div>
-                <div class="square" id="3"></div>
-                <div class="square" id="4"></div>
-                <div class="square" id="5"></div>
+                <div class="square" id="0">x</div>
+                <div class="square" id="1">O</div>
+                <div class="square" id="2">x</div>
+                <div class="square" id="3">x</div>
+                <div class="square" id="4">O</div>
+                <div class="square" id="5">O</div>
                 <div class="square" id="6"></div>
                 <div class="square" id="7"></div>
                 <div class="square" id="8"></div>
             </div>
             <div id="player-choice">
-
+                <p>Player is "X", level is easy</p>
             </div>
         </div>
         <div id="button-layout">
             <button id="start" type="button">START</button>
             <button id="switch" type="button">SWITCH</button>
+            <button id="level" type="button">LEVEL</button>
             <button id="reset" type="button">RESET</button>
         </div>
     </main>
+    <audio id="bg-music" autoplay loop>
+    <source src="gameboy.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung elemen audio.
+    </audio>
 </body>
 <script src="index.js"></script>
 </html>
