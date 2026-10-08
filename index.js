@@ -97,9 +97,6 @@ function resetGame(){
     startBtn.disabled=false;
     switchBtn.disabled=false;
     levelBtn.disabled=false;
-    huPlayer='X';
-    aiPlayer='O';
-    level='easy';
     message.innerHTML=`<p>Start the game by pressing the start button!</p>`;
     playerChoice.innerHTML=`<p>Player is "${huPlayer}", level is ${level}</p>`;
 }
