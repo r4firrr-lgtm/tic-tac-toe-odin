@@ -99,6 +99,7 @@ function resetGame(){
     levelBtn.disabled=false;
     huPlayer='X';
     aiPlayer='O';
+    level='easy';
     message.innerHTML=`<p>Start the game by pressing the start button!</p>`;
     playerChoice.innerHTML=`<p>Player is "${huPlayer}", level is ${level}</p>`;
 }
@@ -109,7 +110,10 @@ function turnClick(e){
         turn(squareId, huPlayer);
         if (isGameStarted && !checkTie()) {
             setTimeout(() => {
-                turn(aiChoice(), aiPlayer);
+                if (isGameStarted) {
+                    turn(aiChoice(), aiPlayer);
+                    checkTie();
+                }
             }, 400);
         }
     }
@@ -148,11 +152,17 @@ function gameOver(gameWon) {
     const winnerText = gameWon.player === huPlayer ? "You Win!" : "AI Wins!";
     message.innerHTML = `<p>${winnerText}</p>`;
 }
-function emptySquares() {
-    return cellFilled.filter(spot => typeof spot === 'number');
+function emptySquares(board = cellFilled) {
+    return board.filter(spot => typeof spot === 'number');
 }
 function aiChoice() {
-    return emptySquares()[0];
+    if (level === 'easy') {
+        return easyLevel();
+    } else if (level === 'normal') {
+        return normalLevel();
+    } else if (level === 'impossible') {
+        return minimax(cellFilled, aiPlayer).index;
+    }
 }
 function checkTie() {
     if (emptySquares().length === 0) {
@@ -164,4 +174,91 @@ function checkTie() {
         return true;
     }
     return false;
+}
+
+// 🟢 EASY LEVEL: 30% Minimax (Langkah Pintar), 70% Acak (Math.random)
+function easyLevel() {
+    const availableSpots = emptySquares();
+    const useSmartMove = Math.random() < 0.3;
+
+    if (useSmartMove) {
+        return minimax(cellFilled, aiPlayer).index;
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableSpots.length);
+    return availableSpots[randomIndex];
+}
+
+// 🟡 NORMAL LEVEL: 70% Minimax (Langkah Pintar), 30% Acak (Math.random)
+function normalLevel() {
+    const availableSpots = emptySquares();
+    const useSmartMove = Math.random() < 0.7;
+
+    if (useSmartMove) {
+        return minimax(cellFilled, aiPlayer).index;
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableSpots.length);
+    return availableSpots[randomIndex];
+}
+
+// 🔴 IMPOSSIBLE LEVEL: Minimax Algorithm
+function minimax(newBoard, player) {
+    const availSpots = emptySquares(newBoard);
+
+    // 1. Terminal State (Base Cases)
+    if (checkWin(newBoard, huPlayer)) {
+        return { score: -10 };
+    } else if (checkWin(newBoard, aiPlayer)) {
+        return { score: 10 };
+    } else if (availSpots.length === 0) {
+        return { score: 0 };
+    }
+
+    // 2. Evaluasi Setiap Langkah Kosong
+    const moves = [];
+
+    for (let i = 0; i < availSpots.length; i++) {
+        const move = {};
+        move.index = newBoard[availSpots[i]];
+
+        // Coba langkah sementara
+        newBoard[availSpots[i]] = player;
+
+        // Simulasi rekursif bergantian pemain
+        if (player === aiPlayer) {
+            const result = minimax(newBoard, huPlayer);
+            move.score = result.score;
+        } else {
+            const result = minimax(newBoard, aiPlayer);
+            move.score = result.score;
+        }
+
+        // Backtracking (Kembalikan papan ke semula)
+        newBoard[availSpots[i]] = move.index;
+
+        moves.push(move);
+    }
+
+    // 3. Cari Langkah Terbaik Berdasarkan Player
+    let bestMove;
+    if (player === aiPlayer) {
+        let bestScore = -10000;
+        for (let i = 0; i < moves.length; i++) {
+            if (moves[i].score > bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    } else {
+        let bestScore = 10000;
+        for (let i = 0; i < moves.length; i++) {
+            if (moves[i].score < bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    }
+
+    return moves[bestMove];
 }
